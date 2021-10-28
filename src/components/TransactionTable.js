@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 function ExpenseTable(props) {
-    const {id, category, dateAdded, cost} = props
+    const {transactionWith, category, dateAdded, cost} = props
     
     // <h2> {category} </h2>
 

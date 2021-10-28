@@ -1,4 +1,5 @@
 import ExpenseTable from "./ExpenseTable";
+import TransactionTable from "./TransactionTable";
 import React, {useEffect, useState} from 'react'
 import { Form, Button } from 'semantic-ui-react'
 
@@ -6,6 +7,7 @@ function UserProfile(props) {
 	const [search, setSearch] = useState("")
 	const {loggedInStatus, userTransactionsAll, user} = props;
     const [userExpenses, setUserExpenses] = useState([]);
+    const [userTransactions, setUserTransactions] = useState([]);
 
     const [newBalance, setNewBalance] = useState(user.balance)
     const [desiredSavings, setNewDesiredSavings] = useState(user.remainder)
@@ -25,12 +27,30 @@ function UserProfile(props) {
         .then(setUserExpenses)
     }
 
+    function fetchTransactions() {
+        fetch(`http://localhost:3000/transferrable_transactions/`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json'},
+            credentials: 'include', // INCLUDE THIS IN EVERY REQUEST THAT NEEDS AUTH
+        })
+        .then((r) => r.json())
+        .then(setUserTransactions)
+    }
+
     useEffect(() => {
         fetchExpenses();
+        fetchTransactions();
     }, []);
 
     function handleDeleteExpense(id) {
         fetch(`http://localhost:3000/user_expenses/${id}`, {
+            method: "DELETE",
+            credentials: 'include'
+        });
+    }
+
+    function handleDeleteTransaction(id) {
+        fetch(`http://localhost:3000/transferrable_transactions/${id}`, {
             method: "DELETE",
             credentials: 'include'
         });
@@ -47,12 +67,17 @@ function UserProfile(props) {
         />
     ))
 
-    function saveChangesToBalance() {
-        fetch()
-
-    }
-
-    
+    // const transactionTable = userTransactions.map((transaction) => (
+    //     <ExpenseTable
+    //         key={transaction.id}
+    //         id={transaction.id}
+    //         category={transaction.category}
+    //         dateAdded={transaction.created_at}
+    //         cost={transaction.cost}
+    //         transactionWith={transaction.transactee_id}
+    //         handleDeleteExpense={handleDeleteExpense}
+    //     />
+    // ))
 
 	return (
 		<div>
@@ -83,9 +108,9 @@ function UserProfile(props) {
 				<thead background="red">
 					<tr>
 						<th>Expense Category</th>
-						<th>Date Added</th>
 						<th>Cost</th>
-						<th>Remove Expense</th>
+						<th>Date Added</th>
+                        <th>Delete Expense</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -103,11 +128,11 @@ function UserProfile(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{/* {expenseListing} */}
+					{/* {} */}
 				</tbody>
 			</table>
             <br/>
-            <Button onClick={(e) => saveChangesToBalance()}>
+            <Button >
                 Save Changes to Budget
             </Button>
 
