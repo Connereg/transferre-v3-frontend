@@ -8,8 +8,8 @@ function Login(props) {
     let history = useHistory();
 
 	const [open, setOpen] = React.useState(false);
-	const [usernameInput, setUserNameInput] = useState("");
-	const [passwordInput, setPasswordInput] = useState("");
+	const [username, setUserName] = useState("");
+	const [password, setPassword] = useState("");
 
 	const userName = localStorage.getItem("username");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,11 +23,12 @@ function Login(props) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ usernameInput, passwordInput }),
+            body: JSON.stringify({ username, password }),
         }).then((r) => {
                 setIsLoading(false);
                 if (r.ok) {
-                    r.json().then((user) => setUser(user, true));
+                    r.json().then((user) => setUser(user))
+                    
                 }
                 else {
                     r.json().then((err) => setErrorsAll(err.errors))
@@ -64,7 +65,7 @@ function Login(props) {
 	// }
 
     function handleLogInTemp() {
-        localStorage.setItem("username", usernameInput);
+        localStorage.setItem("username", username);
         localStorage.setItem("user_id", 1);
         localStorage.setItem("isLoggedIn", true);
         retrieveLoggedInStatus(true);
@@ -95,8 +96,8 @@ function Login(props) {
         history.push(`/`)
 	}
 	const newUser = {
-		name: usernameInput,
-		password: passwordInput,
+		username: username,
+		password: password,
 	};
 
 
@@ -121,7 +122,7 @@ function Login(props) {
 								<label>User Name</label>
 								<input
 									onChange={(e) =>
-										setUserNameInput(e.target.value)
+										setUserName(e.target.value)
 									}
 									placeholder="User Name"
 								/>
@@ -130,7 +131,7 @@ function Login(props) {
 								<label>Password</label>
 								<input
 									onChange={(e) =>
-										setPasswordInput(e.target.value)
+										setPassword(e.target.value)
 									}
 									placeholder="Password"
 								/>

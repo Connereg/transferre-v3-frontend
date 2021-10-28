@@ -8,7 +8,7 @@ import Body from "./Body";
 
 function App() {
   const [loggedInStatus, setLoggedInStatus] = useState(localStorage.getItem("isLoggedIn"));
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({})
 
   function retrieveLoggedInStatus(lis) {
     setLoggedInStatus(lis);

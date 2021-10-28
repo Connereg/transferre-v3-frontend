@@ -26,7 +26,7 @@ function Body(props) {
 
     useEffect(() => {
         console.log("Populating data...");
-        fetchingExpenses()
+        // fetchingExpenses()
         // fetchingTransactions()
         console.log(userExpensesAll)
     }, [])
@@ -38,9 +38,7 @@ function Body(props) {
 		<div className="body-div">
             <Switch>
 				<Route exact path="/">
-					<Homepage
-
-					/>
+					<Homepage />
 				</Route>
 				<Route exact path="/user_profile">
 					<UserProfile
