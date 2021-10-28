@@ -56,7 +56,7 @@ function UserProfile(props) {
         });
     }
 
-    const expenseTable = userExpenses.map((expense) => (
+    let expenseTable = userExpenses.map((expense) => (
         <ExpenseTable
             key={expense.id}
             id={expense.id}

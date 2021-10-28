@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 function ExpenseTable(props) {
-    const {id, category, dateAdded, cost} = props
+    const {id, category, dateAdded, cost, handleDeleteExpense} = props
     
     // <h2> {category} </h2>
 
@@ -20,7 +20,7 @@ function ExpenseTable(props) {
                 </div>
             </td>
             <td>
-                <button>Delete Expense</button>
+                <button onClick={(e) => handleDeleteExpense(id)}>Delete Expense</button>
             </td>
 						
 		</tr>
