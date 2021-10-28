@@ -7,7 +7,7 @@ import NewTransaction from "./NewTransaction";
 
 
 function Body(props) {
-    const { loggedInStatus } = props;
+    const { loggedInStatus, user } = props;
     const [userExpensesAll, setUserExpensesAll] = useState([]);
     const [userTransactionsAll, setUserTransactionsAll] = useState([]);
     const [toggle, setToggle] = useState(true);
@@ -26,7 +26,7 @@ function Body(props) {
 
     useEffect(() => {
         console.log("Populating data...");
-        // fetchingExpenses()
+        fetchingExpenses()
         // fetchingTransactions()
         console.log(userExpensesAll)
     }, [])
@@ -44,11 +44,13 @@ function Body(props) {
 					<UserProfile
                         userExpensesAll={userExpensesAll}
                         userTransactionsAll={userTransactionsAll}
+                        user={user}
 					
 					/>
 				</Route>
 				<Route exact path="/new_transaction">
                     <NewTransaction
+                    user={user}
 
                     />
 				</Route>

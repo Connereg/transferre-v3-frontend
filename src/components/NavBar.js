@@ -3,7 +3,7 @@ import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 
-function NavBar({ retrieveLoggedInStatus, loggedInStatus, setUser }) {
+function NavBar({ retrieveLoggedInStatus, setLoggedInStatus, loggedInStatus, setUser }) {
 	
 
 	return (
@@ -45,6 +45,7 @@ function NavBar({ retrieveLoggedInStatus, loggedInStatus, setUser }) {
 					<Login
 						retrieveLoggedInStatus={retrieveLoggedInStatus}
 						loggedInStatus={loggedInStatus}
+                        setLoggedInStatus={setLoggedInStatus}
                         setUser={setUser}
 					/>
 				</Menu.Item>

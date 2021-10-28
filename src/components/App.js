@@ -7,18 +7,19 @@ import Body from "./Body";
 
 
 function App() {
-  const [loggedInStatus, setLoggedInStatus] = useState(localStorage.getItem("isLoggedIn"));
+  const [loggedInStatus, setLoggedInStatus] = useState(false);
   const [user, setUser] = useState({})
 
   function retrieveLoggedInStatus(lis) {
     setLoggedInStatus(lis);
+    localStorage.setItem("isLoggedIn", true);
   }
 
   return (
     <div className="App">
       <Header />
-      <NavBar loggedInStatus={loggedInStatus} retrieveLoggedInStatus={retrieveLoggedInStatus} setUser={setUser} />
-      <Body loggedInStatus={loggedInStatus} />
+      <NavBar loggedInStatus={loggedInStatus} setLoggedInStatus={setLoggedInStatus} retrieveLoggedInStatus={retrieveLoggedInStatus} setUser={setUser} />
+      <Body loggedInStatus={loggedInStatus} user={user}/>
     </div>
   );
 }

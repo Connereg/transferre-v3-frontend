@@ -3,12 +3,29 @@ import { useState } from 'react';
 
 
 
-function NewTransaction() {
-
+function NewTransaction({ user }) {
     const [isTransaction, setIsTransaction] = useState(false);
 
+
+
     const toggleIsTransaction = () => setIsTransaction(!isTransaction);
-    
+
+
+    function postNewExpense() {
+
+    }
+
+   
+    function postNewExpense() {
+        fetch(`http://127.0.0.1:3000/user_expenses/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({ 
+                cost: 
+            })
+
+        }
+        )}
 
 
     return (
@@ -19,7 +36,7 @@ function NewTransaction() {
             <Form>
             <Form.Field>
                 <Button onClick={toggleIsTransaction}>
-                    {isTransaction ? 'Transaction' : 'Expense'}
+                    {isTransaction ? 'Expense' : 'Transaction'}
                 </Button>
             </Form.Field>
             {isTransaction ? (

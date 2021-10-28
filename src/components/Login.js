@@ -3,7 +3,7 @@ import { Button, Form, Image, Modal } from "semantic-ui-react";
 import { useHistory } from 'react-router-dom'
 
 function Login(props) {
-	const { retrieveLoggedInStatus, loggedInStatus, setUser } = props;
+	const { retrieveLoggedInStatus, loggedInStatus, setLoggedInStatus, setUser } = props;
 
     let history = useHistory();
 
@@ -11,7 +11,6 @@ function Login(props) {
 	const [username, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 
-	const userName = localStorage.getItem("username");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [errorsAll, setErrorsAll] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +27,9 @@ function Login(props) {
                 setIsLoading(false);
                 if (r.ok) {
                     r.json().then((user) => setUser(user))
+                    setIsLoggedIn(true)
+                    retrieveLoggedInStatus(true)
+                    localStorage.setItem("username", username);
                     
                 }
                 else {
@@ -35,43 +37,27 @@ function Login(props) {
                     console.log(errorsAll)
                 }
             });
-        }        
-        
+        }
     
-    
-    
-    
-        // 		.then((response) => response.json())
-	// 		.then((data) => {
-	// 			console.log(data);
-	// 			const correctLogin = data.find((user) => {
-	// 				if (
-	// 					user.name === usernameInput &&
-	// 					user.password === passwordInput
-	// 				) {
-	// 					return user;
-	// 				}
-	// 			});
-	// 			console.log("return", correctLogin);
-
-	// 			if (correctLogin) {
-	// 				localStorage.setItem("username", correctLogin.name);
-	// 				localStorage.setItem("user_id", correctLogin.id);
-	// 				localStorage.setItem("isLoggedIn", true);
-	// 				retrieveLoggedInStatus(true);
-	// 				setIsLoggedIn(true);
-	// 			}
-	// 		});
-	// }
-
-    function handleLogInTemp() {
-        localStorage.setItem("username", username);
-        localStorage.setItem("user_id", 1);
-        localStorage.setItem("isLoggedIn", true);
-        retrieveLoggedInStatus(true);
-        setIsLoggedIn(true);
-
+    function handleLogOut() {
+        localStorage.removeItem("username");
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("isLoggedIn");
+        setLoggedInStatus(false);
+        setIsLoggedIn(false);
+        setUser({})
+        history.push(`/`)
     }
+    
+
+    // function handleLogInTemp() {
+    //     localStorage.setItem("username", username);
+    //     localStorage.setItem("user_id", 1);
+    //     localStorage.setItem("isLoggedIn", true);
+    //     retrieveLoggedInStatus(true);
+    //     setIsLoggedIn(true);
+
+    // }
 
     	// function handlePost() {
 	// 	fetch("http://localhost:9292/users", {
@@ -87,14 +73,7 @@ function Login(props) {
 	// }
 
 
-	function handleLogOut() {
-		localStorage.removeItem("username");
-		localStorage.removeItem("user_id");
-		localStorage.removeItem("isLoggedIn");
-		retrieveLoggedInStatus(false);
-		setIsLoggedIn(false);
-        history.push(`/`)
-	}
+
 	const newUser = {
 		username: username,
 		password: password,
@@ -144,7 +123,7 @@ function Login(props) {
 					) : null}
 					<h4>
 						{isLoggedIn
-							? `You are now logged in as: ${userName}`
+							? `You are now logged in as: ${username}`
 							: "You are not logged in!"}
 					</h4>
 					{isLoggedIn ? (
