@@ -74,7 +74,8 @@ function UserProfile(props) {
     //         category={transaction.category}
     //         dateAdded={transaction.created_at}
     //         cost={transaction.cost}
-    //         transactionWith={transaction.transactee_id}
+    //         transactee={transaction.transactee}
+
     //         handleDeleteExpense={handleDeleteExpense}
     //     />
     // ))
