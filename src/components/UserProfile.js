@@ -1,10 +1,11 @@
 import ExpenseTable from "./ExpenseTable";
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Form, Button } from 'semantic-ui-react'
 
 function UserProfile(props) {
 	const [search, setSearch] = useState("")
-	const {loggedInStatus, userExpensesAll , userTransactionsAll, user} = props
+	const {loggedInStatus, userTransactionsAll, user} = props;
+    const [userExpenses, setUserExpenses] = useState([]);
 
     const [newBalance, setNewBalance] = useState(user.balance)
     const [desiredSavings, setNewDesiredSavings] = useState(user.remainder)
@@ -13,22 +14,38 @@ function UserProfile(props) {
 	// note.user.name.toLowerCase().includes(search.toLowerCase())
 	// ))
 
+
+    function fetchExpenses() {
+        fetch(`http://localhost:3000/user_expenses/`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json'},
+            credentials: 'include', // INCLUDE THIS IN EVERY REQUEST THAT NEEDS AUTH
+        })
+        .then((r) => r.json())
+        .then(setUserExpenses)
+    }
+
+    useEffect(() => {
+        fetchExpenses();
+    }, []);
+
     function handleDeleteExpense(id) {
         fetch(`http://localhost:3000/user_expenses/${id}`, {
             method: "DELETE",
+            credentials: 'include'
         });
     }
 
-		// const expenseListing = userExpensesAll.map((expense) => (
-		// 	<ExpenseTable
-		// 		key={expense.id}
-		// 		id={expense.id} 	
-		// 		category={expense.category}
-		// 		dateAdded={expense.created_at}
-		// 		cost={expense.cost}
-        //         handleDeleteExpense={handleDeleteExpense}
-		// 		/>
-		// ))
+    const expenseTable = userExpenses.map((expense) => (
+        <ExpenseTable
+            key={expense.id}
+            id={expense.id}
+            category={expense.category}
+            dateAdded={expense.created_at}
+            cost={expense.cost}
+            handleDeleteExpense={handleDeleteExpense}
+        />
+    ))
 
     function saveChangesToBalance() {
         fetch()
@@ -72,7 +89,7 @@ function UserProfile(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{/* {expenseListing} */}
+					{expenseTable}
 				</tbody>
 			</table>
             <br/>

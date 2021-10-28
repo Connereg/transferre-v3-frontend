@@ -14,7 +14,7 @@ function ExpenseTable(props) {
                     <h2> {category} </h2>
             </td>
             <td class="">
-                <div class="ui star rating" role="radiogroup" tabindex="-1">
+                <div class="ui star rating" role="radiogroup" tabIndex="-1">
                     {dateAdded}
                 </div>
             </td>

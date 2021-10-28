@@ -17,16 +17,22 @@ function Login(props) {
 
 	function handleLogInAttempt(e) {
         e.preventDefault();
-		fetch("http://127.0.0.1:3000/login", {
+		fetch("http://localhost:3000/login", {
             method: "POST",
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json",
+                'Access-Control-Allow-Credentials': true,
             },
             body: JSON.stringify({ username, password }),
         }).then((r) => {
                 setIsLoading(false);
                 if (r.ok) {
-                    r.json().then((user) => setUser(user))
+                    console.log(r.headers.get('Set-Cookie'))
+                    r.json().then((user) => {
+                        console.log(user);
+                        setUser(user)
+                    })
                     setIsLoggedIn(true)
                     retrieveLoggedInStatus(true)
                     localStorage.setItem("username", username);

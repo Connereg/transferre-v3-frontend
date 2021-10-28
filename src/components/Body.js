@@ -8,15 +8,15 @@ import NewTransaction from "./NewTransaction";
 
 function Body(props) {
     const { loggedInStatus, user } = props;
-    const [userExpensesAll, setUserExpensesAll] = useState([]);
+    // const [userExpensesAll, setUserExpensesAll] = useState([]);
     const [userTransactionsAll, setUserTransactionsAll] = useState([]);
     const [toggle, setToggle] = useState(true);
 
-    function fetchingExpenses() {
-        fetch(`http://localhost:3000/user_expenses/`)
-        .then((r) => r.json())
-        .then((expensedata) => setUserExpensesAll(expensedata))
-    }
+    // function fetchingExpenses() {
+    //     fetch(`http://localhost:3000/user_expenses/`)
+    //     .then((r) => r.json())
+    //     .then((expensedata) => setUserExpensesAll(expensedata))
+    // }
 
     function fetchingTransactions() {
         fetch(`http://localhost:3000/user_transactions/`)
@@ -26,9 +26,9 @@ function Body(props) {
 
     useEffect(() => {
         console.log("Populating data...");
-        fetchingExpenses()
+        // fetchingExpenses()
         // fetchingTransactions()
-        console.log(userExpensesAll)
+        // console.log(userExpensesAll)
     }, [])
 
 
@@ -42,7 +42,7 @@ function Body(props) {
 				</Route>
 				<Route exact path="/user_profile">
 					<UserProfile
-                        userExpensesAll={userExpensesAll}
+                        // userExpensesAll={userExpensesAll}
                         userTransactionsAll={userTransactionsAll}
                         user={user}
 					

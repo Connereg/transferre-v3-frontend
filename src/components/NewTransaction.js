@@ -6,26 +6,37 @@ import { useState } from 'react';
 function NewTransaction({ user }) {
     const [isTransaction, setIsTransaction] = useState(false);
 
-
+    const [expenseCost, setExpenseCost] = useState(0.0)
+    const [expenseCategory, setExpenseCategory] = useState("")
 
     const toggleIsTransaction = () => setIsTransaction(!isTransaction);
 
 
     function postNewExpense() {
-
+        fetch(`http://localhost:3000/user_expenses/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            credentials: 'include', // INCLUDE THIS IN EVERY REQUEST THAT NEEDS AUTH
+            body: JSON.stringify({ 
+                cost: expenseCost,
+                category: expenseCategory
+            })
+        })
     }
 
    
-    function postNewExpense() {
-        fetch(`http://127.0.0.1:3000/user_expenses/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({ 
-                cost: 
-            })
+    // function postNewExpense() {
+    //     fetch(`http://127.0.0.1:3000/user_expenses/`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json'},
+    //         body: JSON.stringify({ 
+    //             cost: expenseCost,
+    //             category: expenseCategory
+    //         })
 
-        }
-        )}
+
+    //     }
+    //     )}
 
 
     return (
@@ -47,13 +58,13 @@ function NewTransaction({ user }) {
             ): null}
             <Form.Field>
                 <label>Expense Category</label>
-                <input placeholder='Category of expense here' />
+                <input onChange={(e) => setExpenseCategory(e.target.value)} placeholder='Category of expense here' />
             </Form.Field>
             <Form.Field>
                 <label>Expense Cost</label>
-                <input placeholder='Cost amount here' />
+                <input onChange={(e) => setExpenseCost(e.target.value)} placeholder='Cost amount here' />
             </Form.Field>
-            <Button type='submit'>Submit</Button>
+            <Button type='submit' onClick={postNewExpense}>Submit</Button>
             </Form>
         </Container>
       </div> 
