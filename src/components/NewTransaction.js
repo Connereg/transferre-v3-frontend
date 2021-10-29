@@ -1,15 +1,18 @@
 import { Button, Checkbox, Form, Container } from 'semantic-ui-react';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 
 
 
-function NewTransaction({ user }) {
+function NewTransaction({ user, setRenderToggle, renderToggle }) {
     const [isTransaction, setIsTransaction] = useState(false);
 
     const [expenseCost, setExpenseCost] = useState(0.0)
     const [expenseCategory, setExpenseCategory] = useState("")
 
     const toggleIsTransaction = () => setIsTransaction(!isTransaction);
+
+    let history = useHistory();
 
 
     function postNewExpense() {
@@ -22,6 +25,8 @@ function NewTransaction({ user }) {
                 category: expenseCategory
             })
         })
+        history.push(`/user_profile`)
+        setRenderToggle(!renderToggle)
     }
 
    

@@ -10,7 +10,7 @@ function Body(props) {
     const { loggedInStatus, user } = props;
     // const [userExpensesAll, setUserExpensesAll] = useState([]);
     const [userTransactionsAll, setUserTransactionsAll] = useState([]);
-    const [toggle, setToggle] = useState(true);
+    const [renderToggle, setRenderToggle] = useState(true)
 
     // function fetchingExpenses() {
     //     fetch(`http://localhost:3000/user_expenses/`)
@@ -45,12 +45,16 @@ function Body(props) {
                         // userExpensesAll={userExpensesAll}
                         userTransactionsAll={userTransactionsAll}
                         user={user}
+                        renderToggle={renderToggle}
+                        setRenderToggle={setRenderToggle}
 					
 					/>
 				</Route>
 				<Route exact path="/new_transaction">
                     <NewTransaction
                     user={user}
+                    renderToggle={renderToggle}
+                    setRenderToggle={setRenderToggle}
 
                     />
 				</Route>
