@@ -20,6 +20,7 @@ function Header() {
 					size="small"
 				/>
 			</Link>
+            <h1 className="application-titler"> Transferre Budgeting</h1>
 		</div>
 	);
 }

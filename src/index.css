@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.application-titler {
+  display: block;
+  position: absolute;
+  text-align: center;
+  font-size: xx-large;
+  left: 180px;
+  top: 25px;
+}

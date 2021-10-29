@@ -132,8 +132,8 @@ function UserProfile(props) {
 				<i aria-hidden="true" class="search circular inverted link icon"></i>
 			</div> */}
 			<br/>
-            <h2>User Balance: ${newBalance}</h2>
-            <h2>User Desired Savings: ${desiredSavings}</h2>
+            <h2>{localStorage.getItem("username")}'s Balance: ${newBalance}</h2>
+            <h2>{localStorage.getItem("username")}'s Desired Savings: ${desiredSavings}</h2>
             <Form>
                 <Form.Field>
                     <label>Set New Balance</label>
