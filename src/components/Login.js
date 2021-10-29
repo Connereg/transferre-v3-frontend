@@ -44,6 +44,36 @@ function Login(props) {
                 }
             });
         }
+
+        function handleSignUp(e) {
+            e.preventDefault();
+            fetch("http://localhost:3000/signup", {
+                method: "POST",
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Access-Control-Allow-Credentials': true,
+                },
+                body: JSON.stringify({ username, password }),
+            }).then((r) => {
+                    setIsLoading(false);
+                    if (r.ok) {
+                        console.log(r.headers.get('Set-Cookie'))
+                        r.json().then((user) => {
+                            console.log(user);
+                            setUser(user)
+                        })
+                        setIsLoggedIn(true)
+                        retrieveLoggedInStatus(true)
+                        localStorage.setItem("username", username);
+                        
+                    }
+                    else {
+                        r.json().then((err) => setErrorsAll(err.errors))
+                        console.log(errorsAll)
+                    }
+                });
+            }
     
     function handleLogOut() {
         localStorage.removeItem("username");
@@ -122,7 +152,7 @@ function Login(props) {
 								/>
 							</Form.Field>
 							<Button onClick={handleLogInAttempt} >Log In</Button>
-							<Button type="submit">
+							<Button onClick={handleSignUp} type="submit">
 								Sign Up
 							</Button>
 						</Form>

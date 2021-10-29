@@ -61,6 +61,12 @@ function NewTransaction({ user, setRenderToggle, renderToggle }) {
                     <input placeholder='Username of transactee here' />
                 </Form.Field>
             ): null}
+            {isTransaction ? (
+                <Form.Field>
+                    <label>Sending or Charging?</label>
+                    <input placeholder='Input "sending" if you wish to send money, or "charge" if you are requesting money' />
+                </Form.Field>
+            ): null}
             <Form.Field>
                 <label>Expense Category</label>
                 <input onChange={(e) => setExpenseCategory(e.target.value)} placeholder='Category of expense here' />

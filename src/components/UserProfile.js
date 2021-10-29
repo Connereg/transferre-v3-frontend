@@ -170,6 +170,7 @@ function UserProfile(props) {
 						<th>Date Added</th>
 						<th>Cost</th>
 						<th>Transaction With:</th>
+                        <th> Accept/Deny Request:</th>
 					</tr>
 				</thead>
 				<tbody>
